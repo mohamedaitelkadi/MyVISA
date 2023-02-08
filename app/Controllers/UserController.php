@@ -1,7 +1,9 @@
 <?php
 header('Accsess-controle-Allow-Origne: *');
 header('Content-type: aplication/json');
+header('Access-Control-Allow-Methods: DELETE');
 header('Access-Control-Allow-headers: access-Control-Allow-Headers,Content-type,Access-Control-Allow-Methods,Autorization,X-Requested');
+
 
 class UserController extends User
 { 
@@ -62,5 +64,32 @@ class UserController extends User
             echo json_encode(array('message => data not saved' ));
         }
     }
+
+
+    public function delete($id_user)
+    {
+        if($this->remove($id_user)){
+            echo json_encode(array('message = > data deleted'));
+        }else {   
+            echo json_encode(array('message = > data not deleted'));
+        }
+    }
+
+    public function update()
+    {
+        $data  = json_decode(file_get_contents("php://input"));
+
+       
+        $this->id_user = $data->id_user ; 
+        $this->nom = $data->nom ; 
+        $this->prenom = $data->prenom ; 
+        
+        if($this->update()){
+            echo json_encode(array('message = > data updated'));
+        }else {   
+            echo json_encode(array('message = > data not updated'));
+        }
+    }
+    
     
 }

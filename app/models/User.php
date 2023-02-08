@@ -34,7 +34,12 @@ class User extends connection{
         return true;
     }
 
-
+    public function remove($id_user)
+    {
+        $sql = "DELETE FROM user WHERE id_user = $id_user";
+        $req = mysqli_query($this->connect(),$sql);
+        return true;
+    }
 
 }
 
